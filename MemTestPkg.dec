@@ -1,0 +1,27 @@
+#/** @file
+#  MemTest UEFI Shell Application.
+#
+#  Copyright (c) 2007 - 2009, Intel Corporation.
+#  Copyright (c) 2009, Jordan Justen
+#  All rights reserved.
+#
+#  This program and the accompanying materials are licensed and made
+#  available under the terms and conditions of the BSD License which
+#  accompanies this distribution.  The full text of the license may
+#  be found at http://opensource.org/licenses/bsd-license.php
+#
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS"
+#  BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER
+#  EXPRESS OR IMPLIED.
+#
+#**/
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = MemTestPkg
+  PACKAGE_GUID                   = 87cd7a4f-0576-437d-a55a-6be00160b262
+  PACKAGE_VERSION                = 0.0.1
+
+[Includes]
+  Include
+
