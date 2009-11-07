@@ -43,6 +43,8 @@ RunPatternMemTest (
 
   SetMem64 ((VOID*)(UINTN)Start, Length, Pattern);
 
+  MtWbinvd ();
+
   End = (UINT64*)(UINTN) (Start + Length);
   for (Check = (UINT64*)(UINTN)Start; Check < End; Check++) {
     if (*Check != Pattern) {
