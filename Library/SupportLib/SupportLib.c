@@ -148,6 +148,16 @@ MtSupportRunAllTests (
 }
 
 
+VOID
+EFIAPI
+MtWbinvd (
+  VOID
+  )
+{
+  AsmWbinvd ();
+}
+
+
 /**
   Memory Test Constructor.
 

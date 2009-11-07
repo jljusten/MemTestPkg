@@ -60,5 +60,11 @@ MtSupportInstallMemoryTest (
   IN VOID                  *Context
   );
 
+VOID
+EFIAPI
+MtWbinvd (
+  VOID
+  );
+
 #endif
 
