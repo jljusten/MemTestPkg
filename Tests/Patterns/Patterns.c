@@ -24,6 +24,7 @@ STATIC PATTERN_TEST_DATA mPatterns[] = {
   PATTERN_MEM_TEST8 (L"1's", 0xff),
   PATTERN_MEM_TEST8 (L"5A", 0x5a),
   PATTERN_MEM_TEST8 (L"A5", 0xa5),
+  PATTERN_MEM_TEST32 (L"dead beef", 0xdeadbeef),
 };
 
 STATIC
