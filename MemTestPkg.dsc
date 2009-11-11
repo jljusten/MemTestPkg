@@ -72,5 +72,6 @@
   MemTestPkg/MemTest.inf {
     <LibraryClasses>
       NULL|MemTestPkg/Tests/Patterns/Patterns.inf
+      NULL|MemTestPkg/Tests/BitShift/BitShift.inf
   }
 
