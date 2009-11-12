@@ -36,6 +36,8 @@ RunMemoryRangeTest (
   MEM_RANGE_TEST_DATA   *Test;
   EFI_PHYSICAL_ADDRESS  Start;
   UINT64                Length;
+  UINT64                LengthTested;
+  UINT64                SubRangeLength;
 
   Test = (MEM_RANGE_TEST_DATA*) Context;
 
@@ -53,7 +55,13 @@ RunMemoryRangeTest (
       return Status;
     }
 
-    Test->RangeTest (Start, Length, Test->Context);
+    LengthTested = 0;
+    while (LengthTested < Length) {
+      SubRangeLength = MIN(SIZE_1MB, Length - LengthTested);
+      Test->RangeTest (Start, SubRangeLength, Test->Context);
+      Start += SubRangeLength;
+      LengthTested += SubRangeLength;
+    }
   }
 }
 
