@@ -115,7 +115,7 @@ VerifyMemory (
     Check = (EFI_PHYSICAL_ADDRESS*)(UINTN) Start;
     for (; Check < End; Check++) {
         if (*Check != Pattern) {
-            MtUiPrint (L"    Failed at %016lx\n", Check);
+            MtUiPrint (L"    Failed at 0x%016lx\n", Check);
             Failed = TRUE;
         }
     }
