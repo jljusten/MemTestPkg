@@ -59,6 +59,11 @@ RunAddressMemTest (
     }
     
     //
+    // Force the cache to be flushed
+    //
+    MtWbinvd ();
+    
+    //
     // Reset values for verification
     //
     TestLength = Length / sizeof(TestLocation);
