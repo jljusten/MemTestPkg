@@ -17,12 +17,20 @@
 **/
 
 #include <Uefi.h>
+#include <Library/BaseLib.h>
 #include <Library/DebugLib.h>
 #include <Library/MemTestUiLib.h>
+#include <Library/MemTestSupportLib.h>
 #include <Library/PrintLib.h>
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/UefiLib.h>
 
+
+//
+// Global variables
+//
+STATIC UINT64 mProgressTotal;
+STATIC UINTN  mLastPercent;
 
 //
 // Define the maximum message length that this library supports
@@ -90,4 +98,47 @@ MtUiPrint (
 
   return Return;
 }
+
+
+/**
+  Indicates the total size of a pass through the memory test.
+  
+**/
+VOID
+EFIAPI
+MtUiSetProgressTotal (
+  IN UINT64   Total
+  )
+{
+  mLastPercent = 0;
+  mProgressTotal = Total;
+}
+
+
+/**
+  Allows the memory test to indicate progress to the UI library.
+
+**/
+VOID
+EFIAPI
+MtUiUpdateProgress (
+  IN UINT64   Progress
+  )
+{
+  UINTN Percent;
+
+  ASSERT (Progress < mProgressTotal);
+
+  Percent = 
+    (UINTN) DivU64x64Remainder (
+              MultU64x32 (Progress, 100),
+              mProgressTotal,
+              NULL
+              );
+  if ((Percent / 5) > (mLastPercent / 5)) {
+    MtUiPrint (L"%d%%\n", Percent);
+  }
+  mLastPercent = Percent;
+}
+
 

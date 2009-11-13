@@ -32,6 +32,7 @@
 
 **/
 VOID
+EFIAPI
 MtUiSetTestName (
   IN CHAR16        *TestName
   );
@@ -55,6 +56,29 @@ MtUiPrint (
   IN CONST CHAR16  *Format,
   ...
   );
+
+
+/**
+  Indicates the total size of a pass through the memory test.
+  
+**/
+VOID
+EFIAPI
+MtUiSetProgressTotal (
+  IN UINT64   Total
+  );
+
+
+/**
+  Allows the memory test to indicate progress to the UI library.
+
+**/
+VOID
+EFIAPI
+MtUiUpdateProgress (
+  IN UINT64   Progress
+  );
+
 
 #endif
 
