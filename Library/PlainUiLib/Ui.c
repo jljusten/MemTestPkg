@@ -137,6 +137,9 @@ MtUiUpdateProgress (
               );
   if ((Percent / 5) > (mLastPercent / 5)) {
     MtUiPrint (L"%d%%\n", Percent);
+    if (gBS->CheckEvent (gST->ConIn->WaitForKey) == EFI_SUCCESS) {
+      MtSupportAbortTesting ();
+    }
   }
   mLastPercent = Percent;
 }
