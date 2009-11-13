@@ -39,7 +39,7 @@ RunAddressMemTest (
     // Display range being tested
     //
     End = Start + Length;
-    MtUiPrint (L"  Testing Memory Range: 0x%016lx - 0x%016lx\n", Start, End);
+    DEBUG ((DEBUG_INFO, "Testing Memory Range: 0x%016lx - 0x%016lx\n", Start, End));
 
     //
     // Set initial values
@@ -52,7 +52,7 @@ RunAddressMemTest (
     //
     for (Index = 0; Index < TestLength; Index++) {
         if ((((UINT32)Index) % 0x100000) == 0) {
-            MtUiPrint (L"  Writing 0x%016lx\n", TestLocation);
+            DEBUG ((DEBUG_INFO, "Writing 0x%016lx\n", TestLocation));
         }
         *((UINT64*)(UINTN)TestLocation) = TestLocation;
         TestLocation += sizeof(TestLocation);
@@ -74,7 +74,7 @@ RunAddressMemTest (
     //
     for (Index = 0; Index < TestLength; Index++) {
         if ((((UINT32)Index) % 0x100000) == 0) {
-            MtUiPrint (L"  Validating 0x%016lx\n", TestLocation);
+            DEBUG ((DEBUG_INFO, "Validating 0x%016lx\n", TestLocation));
         }
         if (*((UINT64*)(UINTN)TestLocation) != TestLocation) {
             MtUiPrint (L"  Failed At 0x%016lx\n", TestLocation);
