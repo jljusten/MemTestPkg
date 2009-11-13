@@ -42,6 +42,9 @@ RunMemoryRangeTest (
 
   Test = (MEM_RANGE_TEST_DATA*) Context;
 
+  MtUiSetProgressTotal (MtRangesGetTotalSize ());
+  MtUiUpdateProgress (0);
+
   Key = 0;
   Status = EFI_SUCCESS;
   while (TRUE) {
@@ -62,6 +65,7 @@ RunMemoryRangeTest (
       Test->RangeTest (Start, SubRangeLength, Test->Context);
       Start += SubRangeLength;
       LengthTested += SubRangeLength;
+      MtUiUpdateProgress (LengthTested);
 
       if (mAbortTesting) {
         return EFI_ABORTED;
