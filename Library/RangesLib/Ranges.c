@@ -32,6 +32,21 @@ UINTN                       mPagesAllocated;
 
 
 /**
+  Returns the total size of all test memory ranges
+
+  @return  The total size of all test memory ranges
+
+**/
+UINT64
+MtRangesGetTotalSize (
+  VOID
+  )
+{
+  return MultU64x32 (mPagesAllocated, EFI_PAGE_SIZE);
+}
+
+
+/**
   Initializes the memory test ranges
 
   @param[in,out] Key  To retrieve the first range, set Key to 0 before calling.

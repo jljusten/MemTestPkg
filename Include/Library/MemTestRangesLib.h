@@ -24,7 +24,19 @@
 
 
 /**
-  Initializes the memory test ranges
+  Returns the total size of all test memory ranges
+
+  @return  The total size of all test memory ranges
+
+**/
+UINT64
+MtRangesGetTotalSize (
+  VOID
+  );
+
+
+/**
+  Gets the next test memory range
 
   @param[in,out] Key  To retrieve the first range, set Key to 0 before calling.
                       To retrieve the next range, pass in the previous Key.
