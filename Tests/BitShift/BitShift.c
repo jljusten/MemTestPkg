@@ -53,7 +53,7 @@ RunBitShiftMemTest (
     // Display range being tested
     //
     End = Start + Length;
-    MtUiPrint (L"  Testing Memory Range: 0x%016lx - 0x%016lx\n", Start, End);
+    DEBUG ((DEBUG_INFO, "Testing Memory Range: 0x%016lx - 0x%016lx\n", Start, End));
     
     Pattern = *((UINT64*) Context);
     TestDone = FALSE;
@@ -69,7 +69,7 @@ RunBitShiftMemTest (
         //
         // Perform normal pattern test
         //
-        MtUiPrint (L"  Pattern: 0x%016lx\n", Pattern);
+        DEBUG ((DEBUG_INFO, "Pattern: 0x%016lx\n", Pattern));
         SetMem64 ((VOID*)(UINTN)Start, Length, Pattern);
         MtWbinvd ();
         if (VerifyMemory (Start, Length, Pattern)) {
@@ -80,7 +80,7 @@ RunBitShiftMemTest (
         // Perform inversion pattern test
         //
         Pattern = ~Pattern;
-        MtUiPrint (L"  Pattern: 0x%016lx\n", Pattern);
+        DEBUG ((DEBUG_INFO, "Pattern: 0x%016lx\n", Pattern));
         SetMem64 ((VOID*)(UINTN)Start, Length, Pattern);
         MtWbinvd ();
         if (VerifyMemory (Start, Length, Pattern)) {
