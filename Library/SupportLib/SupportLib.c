@@ -22,6 +22,7 @@
 STATIC MEM_TEST_INSTANCE *mTests = NULL;
 STATIC UINTN mTestCount = 0;
 STATIC UINTN mMaxTestCount = 0;
+STATIC BOOLEAN mAbortTesting = FALSE;
 
 
 STATIC
@@ -61,6 +62,10 @@ RunMemoryRangeTest (
       Test->RangeTest (Start, SubRangeLength, Test->Context);
       Start += SubRangeLength;
       LengthTested += SubRangeLength;
+
+      if (mAbortTesting) {
+        return EFI_ABORTED;
+      }
     }
   }
 }
@@ -147,6 +152,10 @@ MtSupportRunAllTests (
   for (Loop = 0; Loop < mTestCount; Loop++) {
     MtUiSetTestName (mTests[Loop].Name);
     Status = mTests[Loop].RunMemTest (mTests[Loop].Context);
+    if (mAbortTesting) {
+      MtUiPrint (L"Testing was aborted...\n");
+      return EFI_ABORTED;
+    }
     if (EFI_ERROR (Status)) {
       ReturnStatus = Status;
     }
@@ -163,6 +172,16 @@ MtWbinvd (
   )
 {
   AsmWbinvd ();
+}
+
+
+VOID
+EFIAPI
+MtSupportAbortTesting (
+  VOID
+  )
+{
+  mAbortTesting = TRUE;
 }
 
 

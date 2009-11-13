@@ -66,5 +66,11 @@ MtWbinvd (
   VOID
   );
 
+VOID
+EFIAPI
+MtSupportAbortTesting (
+  VOID
+  );
+
 #endif
 
