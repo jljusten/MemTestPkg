@@ -23,14 +23,5 @@
 
 #include <Library/MemTestSupportLib.h>
 
-STATIC
-EFI_STATUS
-EFIAPI
-RunAddressMemTest (
-  IN EFI_PHYSICAL_ADDRESS     Start,
-  IN UINT64                   Length,
-  IN VOID                     *Context
-  );
-
 #endif
 

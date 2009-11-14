@@ -41,6 +41,7 @@ EFIAPI
 RunBitShiftMemTest (
     IN EFI_PHYSICAL_ADDRESS     Start,
     IN UINT64                   Length,
+    IN UINTN                    PassNumber,
     IN VOID                     *Context
     )
 {
@@ -138,6 +139,7 @@ BitShiftInit (
         MtSupportInstallMemoryRangeTest (
             mBasePatterns[Index].Name,
             RunBitShiftMemTest,
+            1,
             (VOID*)&mBasePatterns[Index].Pattern
             );
     }

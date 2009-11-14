@@ -33,6 +33,7 @@ EFIAPI
 RunPatternMemTest (
   IN EFI_PHYSICAL_ADDRESS     Start,
   IN UINT64                   Length,
+  IN UINTN                    PassNumber,
   IN VOID                     *Context
   )
 {
@@ -73,6 +74,7 @@ PatternMemTestConstructor (
     MtSupportInstallMemoryRangeTest (
       mPatterns[Loop].Name,
       RunPatternMemTest,
+      1,
       (VOID*) &(mPatterns[Loop].Pattern)
       );
   }

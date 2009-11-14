@@ -27,6 +27,7 @@ EFIAPI
 RunAddressMemTest (
     IN EFI_PHYSICAL_ADDRESS     Start,
     IN UINT64                   Length,
+    IN UINTN                    PassNumber,
     IN VOID                     *Context
     )
 {
@@ -96,6 +97,7 @@ AddressInit (
     MtSupportInstallMemoryRangeTest (
         L"Address Decode Test:",
         RunAddressMemTest,
+        1,
         NULL
         );
 

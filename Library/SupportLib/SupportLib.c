@@ -39,6 +39,7 @@ RunMemoryRangeTest (
   UINT64                Length;
   UINT64                LengthTested;
   UINT64                SubRangeLength;
+  UINTN                 PassNumber;
 
   Test = (MEM_RANGE_TEST_DATA*) Context;
 
@@ -62,7 +63,11 @@ RunMemoryRangeTest (
     LengthTested = 0;
     while (LengthTested < Length) {
       SubRangeLength = MIN(SIZE_1MB, Length - LengthTested);
-      Test->RangeTest (Start, SubRangeLength, Test->Context);
+
+      for (PassNumber = 0; PassNumber < Test->PassCount; PassNumber++) {
+        Test->RangeTest (Start, SubRangeLength, PassNumber, Test->Context);
+      }
+
       Start += SubRangeLength;
       LengthTested += SubRangeLength;
       MtUiUpdateProgress (LengthTested);
@@ -78,9 +83,10 @@ RunMemoryRangeTest (
 EFI_STATUS
 EFIAPI
 MtSupportInstallMemoryRangeTest (
-  CHAR16                *Name,
-  TEST_MEM_RANGE        TestRangeFunction,
-  IN  VOID              *Context
+  IN CHAR16             *Name,
+  IN TEST_MEM_RANGE     TestRangeFunction,
+  IN UINTN              NumberOfPasses,
+  IN VOID               *Context
   )
 {
   EFI_STATUS           Status;
@@ -92,6 +98,7 @@ MtSupportInstallMemoryRangeTest (
   }
 
   NewInstance->RangeTest = TestRangeFunction;
+  NewInstance->PassCount = NumberOfPasses;
   NewInstance->Context = Context;
 
   Status = MtSupportInstallMemoryTest (

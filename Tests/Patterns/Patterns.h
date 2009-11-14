@@ -42,6 +42,7 @@ EFIAPI
 RunPatternMemTest (
   IN EFI_PHYSICAL_ADDRESS     Start,
   IN UINT64                   Length,
+  IN UINTN                    PassNumber,
   IN VOID                     *Context
   );
 

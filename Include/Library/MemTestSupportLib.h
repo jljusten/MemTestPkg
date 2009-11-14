@@ -35,15 +35,17 @@ EFI_STATUS
 (EFIAPI *TEST_MEM_RANGE)(
   IN EFI_PHYSICAL_ADDRESS     Start,
   IN UINT64                   Length,
+  IN UINTN                    PassNumber,
   IN VOID                     *Context
   );
 
 EFI_STATUS
 EFIAPI
 MtSupportInstallMemoryRangeTest (
-  CHAR16                *Name,
-  TEST_MEM_RANGE        TestRangeFunction,
-  IN  VOID              *Context
+  IN CHAR16             *Name,
+  IN TEST_MEM_RANGE     TestRangeFunction,
+  IN UINTN              NumberOfPasses,
+  IN VOID               *Context
   );
 
 typedef

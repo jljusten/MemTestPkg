@@ -23,6 +23,7 @@
 
 typedef struct {
   TEST_MEM_RANGE           RangeTest;
+  UINTN                    PassCount;
   VOID                     *Context;
 } MEM_RANGE_TEST_DATA;
 
