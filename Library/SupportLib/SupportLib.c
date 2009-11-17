@@ -124,10 +124,15 @@ MtSupportInstallMemoryTest (
     NewTests =
       (MEM_TEST_INSTANCE*) AllocatePool (
                              sizeof (MEM_TEST_INSTANCE) *
-                             mMaxTestCount
+                             NewMaxTests
                              );
     if (NewTests == NULL) {
       return EFI_OUT_OF_RESOURCES;
+    }
+
+    if (mTests != NULL && mMaxTestCount != 0) {
+      CopyMem (NewTests, mTests, sizeof (MEM_TEST_INSTANCE) * mMaxTestCount);
+      FreePool (mTests);
     }
 
     mMaxTestCount = NewMaxTests;
