@@ -38,10 +38,13 @@ MtRangesGetTotalSize (
 /**
   Gets the next test memory range
 
-  @param[in,out] Key  To retrieve the first range, set Key to 0 before calling.
-                      To retrieve the next range, pass in the previous Key.
+  @param[in,out] Key     To retrieve the first range, set Key to 0 before calling.
+                         To retrieve the next range, pass in the previous Key.
+  @param[out]    Start   Start of the next memory range
+  @param[out]    Length  Length of the next memory range
 
   @retval  EFI_NOT_FOUND  Indicates all ranges have been returned
+  @retval  EFI_SUCCESS    The next memory range was returned
 
 **/
 EFI_STATUS
