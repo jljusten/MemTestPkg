@@ -64,9 +64,16 @@ RunMemoryRangeTest (
     while (LengthTested < Length) {
       SubRangeLength = MIN(SIZE_1MB, Length - LengthTested);
 
+      Status = MtRangesLockRange (Start, SubRangeLength);
+      if (EFI_ERROR (Status)) {
+        continue;
+      }
+
       for (PassNumber = 0; PassNumber < Test->PassCount; PassNumber++) {
         Test->RangeTest (Start, SubRangeLength, PassNumber, Test->Context);
       }
+
+      MtRangesUnlockRange (Start, SubRangeLength);
 
       Start += SubRangeLength;
       LengthTested += SubRangeLength;

@@ -53,6 +53,42 @@ MtRangesGetNextRange (
 
 
 /**
+  Lock memory range
+
+  @param[in]    Start   Start of the memory range
+  @param[in]    Length  Length of the memory range
+
+  @retval  EFI_ACCESS_DENIED  The range could not be locked
+  @retval  EFI_SUCCESS        The range was locked
+
+**/
+EFI_STATUS
+EFIAPI
+MtRangesLockRange (
+  IN    EFI_PHYSICAL_ADDRESS  Start,
+  IN    UINT64                Length
+  );
+
+
+/**
+  Unlocks a memory range
+
+  @param[in]    Start   Start of the memory range
+  @param[in]    Length  Length of the memory range
+
+  @retval  EFI_INVALID_PARAMETER  The range could not be unlocked
+  @retval  EFI_SUCCESS            The range was unlocked
+
+**/
+VOID
+EFIAPI
+MtRangesUnlockRange (
+  IN    EFI_PHYSICAL_ADDRESS  Start,
+  IN    UINT64                Length
+  );
+
+
+/**
   Initializes the memory test ranges
 
 **/

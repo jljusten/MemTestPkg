@@ -74,6 +74,57 @@ MtRangesGetNextRange (
 }
 
 
+/**
+  Lock memory range
+
+  @param[in]    Start   Start of the memory range
+  @param[in]    Length  Length of the memory range
+
+  @retval  EFI_ACCESS_DENIED  The range could not be locked
+  @retval  EFI_SUCCESS        The range was locked
+
+**/
+EFI_STATUS
+EFIAPI
+MtRangesLockRange (
+  IN    EFI_PHYSICAL_ADDRESS  Start,
+  IN    UINT64                Length
+  )
+{
+  EFI_STATUS     Status;
+
+  Status = gBS->AllocatePages (
+                  AllocateAddress,
+                  EfiBootServicesData,
+                  EFI_SIZE_TO_PAGES (Length),
+                  &Start
+                  );
+  if (EFI_ERROR (Status)) {
+    return EFI_OUT_OF_RESOURCES;
+  }
+
+  return EFI_SUCCESS;
+}
+
+
+/**
+  Unlocks a memory range
+
+  @param[in]    Start   Start of the memory range
+  @param[in]    Length  Length of the memory range
+
+**/
+VOID
+EFIAPI
+MtRangesUnlockRange (
+  IN    EFI_PHYSICAL_ADDRESS  Start,
+  IN    UINT64                Length
+  )
+{
+  gBS->FreePages (Start, EFI_SIZE_TO_PAGES (Length));
+}
+
+
 EFI_STATUS
 ReadMemoryRanges (
   )
@@ -139,20 +190,6 @@ ReadMemoryRanges (
       if (PagesAddress == 0ll && NumberOfPages > 1) {
         PagesAddress = PagesAddress + EFI_PAGE_SIZE;
         NumberOfPages--;
-      }
-      NumberOfPages = MIN (
-                        NumberOfPages,
-                        Available - (SIZE_1MB / EFI_PAGE_SIZE)
-                        );
-      Status = gBS->AllocatePages (
-                      AllocateAddress,
-                      EfiBootServicesData,
-                      NumberOfPages,
-                      &PagesAddress
-                      );
-      if (EFI_ERROR (Status)) {
-        MtRangesDeconstructor ();
-        return Status;
       }
 
       if (MapEntry->PhysicalStart != PagesAddress) {
@@ -224,15 +261,7 @@ EFI_STATUS
 MtRangesDeconstructor (
   )
 {
-  UINTN Loop;
-
   if (mMemoryMap != NULL) {
-    for (Loop = 0; Loop < mMemoryMapCount; Loop++) {
-      gBS->FreePages (
-        mMemoryMap[Loop].PhysicalStart,
-        (UINTN) mMemoryMap[Loop].NumberOfPages
-        );
-    }
     FreePool (mMemoryMap);
     mMemoryMap = NULL;
   }
